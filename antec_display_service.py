@@ -1,12 +1,21 @@
 #!/usr/bin/env python3
 
+# if you get error "No module named 'usb'"
+#   sudo apt install python3-pip python3-full python3-usb
+#   python3 -m venv antec_display_venv
+#   source antec_display_venv/bin/activate
+#   pip3 install pyusb==1.3.1
+## pip install -r requirements.txt
+## to get out
+## deactivate
+
 import os
 import configparser
 import time
 import usb.core
 import usb.util
 
-CONFIG_FILE = "/etc/antec/sensors.conf"
+CONFIG_FILE = "/home/dkman/git/antec_flux_pro_display_service/sensors.conf"
 
 def load_config():
     """
@@ -14,6 +23,7 @@ def load_config():
     :return: Dictionary with 'cpu' and 'gpu' configurations or None if file is missing.
     """
     if not os.path.exists(CONFIG_FILE):
+        print("config file not found or permission denied")
         return None
 
     config = configparser.ConfigParser()
@@ -23,6 +33,8 @@ def load_config():
             "cpu": {"sensor": config['cpu']['sensor'], "name": config['cpu']['name']},
             "gpu": {"sensor": config['gpu']['sensor'], "name": config['gpu']['name']}
         }
+    else:
+        print("cpu and gpu not pulled from config file")
     return None
 
 def find_temp_file(sensor_name, label_name):
@@ -177,6 +189,10 @@ def main():
         cpu_path = find_temp_file(config["cpu"]["sensor"], config["cpu"]["name"])
         gpu_path = find_temp_file(config["gpu"]["sensor"], config["gpu"]["name"])
         if not cpu_path or not gpu_path:
+            if cpu_path is not None:
+                print("Warn: CPU Path." + cpu_path)
+            if gpu_path is not None:
+                print("Warn: GPU Path." + gpu_path)
             print("Error: Could not find temperature files for sensors specified in the config.")
             return
     else:
