@@ -4,6 +4,7 @@ After=network.target
 
 [Service]
 ExecStart=/usr/bin/python3 /usr/bin/antec_display_service.py
+#ExecStart=/usr/bin/python3 /home/USERNAME/git/antec_flux_pro_display_service/antec_display_service.py
 WorkingDirectory=/usr/bin
 Restart=always
 User=root
