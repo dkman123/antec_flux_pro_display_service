@@ -16,7 +16,7 @@ import usb.core
 import usb.util
 
 CONFIG_FILE = "/etc/antec/sensors.conf"
-#CONFIG_FILE = "/home/dkman/git/antec_flux_pro_display_service/sensors.conf"
+#CONFIG_FILE = "/home/USERNAME/git/antec_flux_pro_display_service/sensors.conf"
 
 def load_config():
     """
