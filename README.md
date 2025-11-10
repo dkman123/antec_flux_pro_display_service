@@ -1,5 +1,4 @@
-
-
+```
 # you NEED to edit the config file to determine the sensors it should read
 # cd /sys/class/hwmon
 # for each folder check the hardware sensor name:
@@ -33,3 +32,4 @@ sudo systemctl daemon-reload
 #sudo systemctl status antec_display
 # to stop it
 #sudo systemctl stop antec_display
+```
